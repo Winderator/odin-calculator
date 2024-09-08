@@ -11,7 +11,11 @@ function multiply(a,b){
 }
 
 function divide(a,b){
-    return a/b
+    if (b === 0){
+        alert("Don't divide by 0 please")
+        return 0
+    }
+    return Math.round((a/b)*100)/100
 }
 
 function operate(firstVar,operator,secondVar){
