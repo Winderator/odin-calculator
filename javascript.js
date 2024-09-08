@@ -18,6 +18,22 @@ function operate(firstVar,operator,secondVar){
     return operator(firstVar,secondVar)
 }
 
-let firstVar
-let secondVar
-let operator
+
+function clickNumber(number){
+    displayValue = displayValue + number
+    display.innerText = displayValue
+}
+
+let firstVar = 0
+let secondVar = 0
+let operator = add
+
+let display = document.querySelector('#display')
+let displayValue = ""
+
+document.querySelectorAll('.number')
+    .forEach(number => {
+        number.addEventListener('click', e => {
+        clickNumber(e.target.innerText)
+    })
+    })
