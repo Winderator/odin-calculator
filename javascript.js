@@ -41,6 +41,14 @@ function clickNumber(number){
     }
 }
 
+function back(){
+    if (displayValue.length < 2){
+        updateDisplay('')
+    } else {
+        updateDisplay(displayValue.slice(0,-1))
+    }
+}
+
 function clearInput(){
     firstVar = null
     secondVar = null
@@ -122,3 +130,5 @@ document.querySelectorAll('.operator')
     })
 
 document.querySelector('#equals').addEventListener('click', showResult)
+
+document.querySelector('#back').addEventListener('click',back)
