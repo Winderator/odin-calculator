@@ -18,15 +18,58 @@ function operate(firstVar,operator,secondVar){
     return operator(firstVar,secondVar)
 }
 
-
-function clickNumber(number){
-    displayValue = displayValue + number
+function updateDisplay(newValue){
+    displayValue = newValue
     display.innerText = displayValue
 }
 
-let firstVar = 0
-let secondVar = 0
-let operator = add
+
+function clickNumber(number){
+    updateDisplay(displayValue + number)
+}
+
+function clearInput(){
+    firstVar = null
+    secondVar = null
+    operator = null
+    updateDisplay('')
+}
+
+function selectOperation(operation){
+    firstVar = Number(displayValue)
+    
+    switch (operation){
+        case 'add':
+            operator = add
+            break
+        case 'subtract':
+            operator = subtract
+            break
+        case 'multiply':
+            operator = multiply
+            break
+        case 'divide':
+            operator = divide
+            break
+    }
+
+    updateDisplay('')
+}
+
+function showResult(){
+    if (firstVar === null || operator === null){
+        return
+    }
+
+    secondVar = Number(displayValue)
+    let result = operate(firstVar,operator,secondVar)
+    updateDisplay(result)
+    firstVar = result
+}
+
+let firstVar = null
+let secondVar = null
+let operator = null
 
 let display = document.querySelector('#display')
 let displayValue = ""
@@ -37,3 +80,14 @@ document.querySelectorAll('.number')
         clickNumber(e.target.innerText)
     })
     })
+
+document.querySelector('#clear').addEventListener('click', clearInput)
+
+document.querySelectorAll('.operator')
+    .forEach(operator => {
+        operator.addEventListener('click', e => {
+            selectOperation(e.target.id)
+        })
+    })
+
+document.querySelector('#equals').addEventListener('click', showResult)
