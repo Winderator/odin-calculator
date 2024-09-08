@@ -15,7 +15,7 @@ function divide(a,b){
         alert("Don't divide by 0 please")
         return 0
     }
-    return Math.round((a/b)*100)/100
+    return a/b
 }
 
 function operate(firstVar,operator,secondVar){
@@ -33,7 +33,11 @@ function clickNumber(number){
         chainOperation = false
         updateDisplay(number)
     } else {
-        updateDisplay(displayValue + number)
+        if (number == '.' && displayValue.includes('.')){
+            return
+        } else {
+            updateDisplay(displayValue + number)
+        }
     }
 }
 
@@ -86,6 +90,7 @@ function showResult(){
 
     secondVar = Number(displayValue)
     let result = operate(firstVar,operator,secondVar)
+    result = Math.round((result)*100)/100
     updateDisplay(result)
     firstVar = result
     operator = null
