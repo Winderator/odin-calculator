@@ -25,7 +25,12 @@ function updateDisplay(newValue){
 
 
 function clickNumber(number){
-    updateDisplay(displayValue + number)
+    if (chainOperation){
+        chainOperation = false
+        updateDisplay(number)
+    } else {
+        updateDisplay(displayValue + number)
+    }
 }
 
 function clearInput(){
@@ -36,7 +41,14 @@ function clearInput(){
 }
 
 function selectOperation(operation){
-    firstVar = Number(displayValue)
+
+    let existingOperation = false
+
+    if (operator !== null){
+        showResult()
+        existingOperation = true
+        chainOperation = true
+    }
     
     switch (operation){
         case 'add':
@@ -53,7 +65,14 @@ function selectOperation(operation){
             break
     }
 
-    updateDisplay('')
+    
+
+    if (!existingOperation){
+        firstVar = Number(displayValue)
+        updateDisplay('')
+    }
+
+    
 }
 
 function showResult(){
@@ -65,11 +84,14 @@ function showResult(){
     let result = operate(firstVar,operator,secondVar)
     updateDisplay(result)
     firstVar = result
+    operator = null
 }
 
 let firstVar = null
 let secondVar = null
 let operator = null
+
+let chainOperation = false
 
 let display = document.querySelector('#display')
 let displayValue = ""
